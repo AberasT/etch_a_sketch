@@ -1,8 +1,9 @@
 const selector = document.getElementById('sizes');
 const container = document.getElementById('board');
-const colorSel = document.getElementById('color');
+const paintColorSel = document.getElementById('paint-color');
+const boardColorSel = document.getElementById('board-color');
 
-let color = colorSel.value;
+let currentBoardColor = '';
 
 let size = selector.value;
 
@@ -20,8 +21,8 @@ function makeGrid() {
             d.style.borderWidth = '1px';
             d.style.borderColor = 'rgb(240, 240, 240)';
             d.addEventListener('mouseover', ()=> {
-                d.style.backgroundColor = 'black';
-            })
+                d.style.backgroundColor = paintColorSel.value;
+            });
             container.appendChild(d);
         }
     }
@@ -38,22 +39,33 @@ selector.addEventListener('change', ()=>{
     makeGrid();
 });
 
-//Color change
-colorSel.addEventListener('change', ()=>{
+//Paint color change
+paintColorSel.addEventListener('change', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let l = 0; l < (size*size); l++) {
         allSq[l].addEventListener('mouseover', ()=> {
-            allSq[l].style.backgroundColor = colorSel.value;
-        })
+            allSq[l].style.backgroundColor = paintColorSel.value;
+        });
     };
 });
 
+ //Board color change
+ //Error at the comparison of the color values in the if sentence because of different formats 
+boardColorSel.addEventListener('change', ()=>{
+    const allSq = document.getElementsByClassName('square');
+    for (let q = 0; q < (size*size); q++) {
+            if (allSq[q].style.backgroundColor === currentBoardColor) {
+                allSq[q].style.backgroundColor = boardColorSel.value;
+            };
+    };
+    currentBoardColor = boardColorSel.value;
+});
+
 /*NEXT:
--COLOR SELECTOR (SAVE PREVIOUS DRAW) 1
 -GRID TOGGLE
 -CHANGE BACKGROUND COLOR
 -SIMPLE INTERFACE
-- 
+-(Optional): Instead of just changing the color of your grid from black to white (for example) have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it so that only after 10 passes is the square completely black.
 */
 
 //The reset button turns the board white
