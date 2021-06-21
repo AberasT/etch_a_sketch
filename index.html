@@ -8,9 +8,16 @@
 </head>
 <body>
     <div id="board"></div>
-    <p>SIZE</p>
     <button id="reset">RESET</button>
-    <input type="number">
+    <label for="Size">Choose a size:</label>
+    <select id="sizes">
+        <option value="4">4x4</option>
+        <option value="8">8x8</option>
+        <option value="16" selected>16x16</option>
+        <option value="32">32x32</option>
+        <option value="64">64x64</option>
+        <option value="128">128x128</option>
+    </select>
     <script src="script.js"></script>
 </body>
 </html>

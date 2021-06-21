@@ -1,5 +1,15 @@
+body {
+    background-color: grey;
+}
+
 #board {
     display: grid;
+    background-color: white;
+    margin: auto;
+    padding: 0.1vw;
+    height: 80vh;
+    width: 80vh;
+    border-style: solid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
 }
