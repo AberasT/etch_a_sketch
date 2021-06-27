@@ -7,19 +7,28 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
-    <div id="board"></div>
-    <button id="reset">RESET</button>
-    <label for="Size">Choose a size:</label>
-    <select id="sizes">
-        <option value="5">5x5</option>
-        <option value="10">10x10</option>
-        <option value="30" selected>30x30</option>
-        <option value="50">50x50</option>
-        <option value="80">80x80</option>
-        <option value="100">100x100</option>
-    </select>
-    <input id="paint-color" type="color">
-    <input id="board-color" type="color">
+    <div id="container">
+        <div id="board"></div>
+        <div id="settings"><button class="bttn" id="reset">RESET</button>
+            <label for="Size">Choose a size:</label>
+            <select id="sizes">
+                <option value="5">5x5</option>
+                <option value="10">10x10</option>
+                <option value="30" selected>30x30</option>
+                <option value="50">50x50</option>
+                <option value="80">80x80</option>
+                <option value="100">100x100</option>
+            </select>
+            <label class="switch">
+                <input id="colorSwitch" type="checkbox">
+            </label>
+            <label class="switch">
+                <input id="greySwitch" type="checkbox">
+            </label>
+            <input id="paint-color" type="color">
+            <input id="board-color" type="color">
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

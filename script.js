@@ -19,8 +19,10 @@ function makeGrid() {
             d.style.gridColumn = j;
             d.style.borderStyle = 'solid';
             d.style.borderWidth = '1px';
+            d.style.opacity = '1';
             d.style.borderColor = 'rgb(240, 240, 240)';
-            d.addEventListener('mouseover', ()=> {
+            d.style.backgroundColor = currentBoardColor;
+            d.addEventListener('mouseenter', ()=> {
                 d.style.backgroundColor = paintColorSel.value;
             });
             container.appendChild(d);
@@ -50,7 +52,7 @@ paintColorSel.addEventListener('change', ()=>{
 });
 
 //Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
-//This is necessary for the color comparisson for the background color change
+//This is necessary for the color comparisson for the board color change
 function rgbToHex (rgb) {
     if (rgb == '') {
         return '';
@@ -115,10 +117,8 @@ boardColorSel.addEventListener('change', ()=>{
 
 /*NEXT:
 -GRID TOGGLE
--CHANGE BACKGROUND COLOR ---> RGB TO HEX FUNCTION
 -FILL TOOL
 -SIMPLE INTERFACE
--MOUSEENTER EVENT
 -(Optional): Instead of just changing the color of your grid from black to white (for example) have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it so that only after 10 passes is the square completely black.
 */
 
@@ -131,3 +131,43 @@ resetBtn.addEventListener('click', ()=>{
     currentBoardColor = '#ffffff';
 });
 
+//Random paint checkbox
+let colorSwitch = document.getElementById('colorSwitch');
+colorSwitch.addEventListener('change', ()=> {
+    const allSq = document.getElementsByClassName('square');
+    if (colorSwitch.checked) {
+        for (let h = 0; h < (size*size); h++) {
+            allSq[h].addEventListener('mouseenter', ()=> {
+                allSq[h].style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(Math.random()*255)+', '+Math.round(Math.random()*255)+')';
+            });
+        };
+    }
+    else {
+        for (let h = 0; h < (size*size); h++) {
+            allSq[h].addEventListener('mouseenter', ()=> {
+                allSq[h].style.backgroundColor = paintColorSel.value;
+            });
+        };
+    }
+});
+
+//Grey scale paint checkbox
+let greySwitch = document.getElementById('greySwitch');
+greySwitch.addEventListener('change', ()=> {
+    const allSq = document.getElementsByClassName('square');
+    if (greySwitch.checked) {
+        for (let m = 0; m < (size*size); m++) {
+            allSq[m].addEventListener('mouseenter', ()=> {
+                allSq[m].style.backgroundColor = `rgba(0, 0, 0, ${allSq[m].style.opacity - 0.1})`;
+            });
+        };
+    }
+    else {
+        for (let m = 0; m < (size*size); m++) {
+            allSq[m].addEventListener('mouseenter', ()=> {
+                allSq[m].style.backgroundColor = paintColorSel.value;
+                allSq[m].style.opacity = '1';
+            });
+        };
+    }
+});
