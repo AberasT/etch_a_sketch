@@ -49,21 +49,64 @@ paintColorSel.addEventListener('change', ()=>{
     };
 });
 
+//Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
+//This is necessary for the color comparisson for the background color change
 function rgbToHex (rgb) {
-    let r = rgb[4] + rgb[5] + rgb[6];
-    let g = rgb[9] + rgb[10] + rgb[11];
-    let b = rgb[14] + rgb[15] + rgb[16];
-    console.log(r);
-    const rHex = parseInt(r).toString(16);
-    console.log(rHex);
-}
+    if (rgb == '') {
+        return '';
+    }
+    else {
+        let commas = 0;
+        let index = 4;
+        let r = '';
+        let g = '';
+        let b = '';
+        while (rgb[index] !== ')') {
+            if (rgb[index] == ',') {
+                commas++;
+            }
+            else {
+                switch (commas) {
+                    case 0:
+                        if (rgb[index] !== '') {
+                            r += rgb[index];
+                        };
+                        break;
+                    case 1:
+                        if (rgb[index] !== '') {
+                            g += rgb[index];
+                        };
+                        break;
+                    default:
+                        if (rgb[index] !== '') {
+                            b += rgb[index];
+                        };
+                        break;
+                };
+            };
+            index++;
+        };
+        let rHex = parseInt(r).toString(16);
+        if (rHex == '0') {
+            rHex = '00';
+        };
+        let gHex = parseInt(g).toString(16);
+        if (gHex == '0') {
+            gHex = '00';
+        };
+        let bHex = parseInt(b).toString(16);
+        if (bHex == '0') {
+            bHex = '00';
+        };
+        return ('#'+rHex+gHex+bHex);
+    }
+};
 
  //Board color change
- //Error at the comparison of the color values in the if sentence because of different formats 
 boardColorSel.addEventListener('change', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let q = 0; q < (size*size); q++) {
-            if (allSq[q].style.backgroundColor == currentBoardColor) {
+            if (rgbToHex(allSq[q].style.backgroundColor) == currentBoardColor) {
                 allSq[q].style.backgroundColor = boardColorSel.value;
             };
     };
