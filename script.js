@@ -31,8 +31,8 @@ function makeGrid() {
 //This instruction is to make a "default" grid when the user enters the website
 makeGrid();
 
+//Reset button
 const resetBtn = document.getElementById('reset');
-
 selector.addEventListener('change', ()=>{
     size = selector.value;
     container.innerHTML = ''; //This line sets the cointainer to have no content
@@ -49,12 +49,21 @@ paintColorSel.addEventListener('change', ()=>{
     };
 });
 
+function rgbToHex (rgb) {
+    let r = rgb[4] + rgb[5] + rgb[6];
+    let g = rgb[9] + rgb[10] + rgb[11];
+    let b = rgb[14] + rgb[15] + rgb[16];
+    console.log(r);
+    const rHex = parseInt(r).toString(16);
+    console.log(rHex);
+}
+
  //Board color change
  //Error at the comparison of the color values in the if sentence because of different formats 
 boardColorSel.addEventListener('change', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let q = 0; q < (size*size); q++) {
-            if (allSq[q].style.backgroundColor === currentBoardColor) {
+            if (allSq[q].style.backgroundColor == currentBoardColor) {
                 allSq[q].style.backgroundColor = boardColorSel.value;
             };
     };
@@ -74,7 +83,7 @@ boardColorSel.addEventListener('change', ()=>{
 resetBtn.addEventListener('click', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let k = 0; k < (size*size); k++) {
-        allSq[k].style.backgroundColor = 'white';
+        allSq[k].style.backgroundColor = '#FFFFFF';
     };
 });
 
