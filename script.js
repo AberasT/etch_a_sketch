@@ -87,16 +87,16 @@ function rgbToHex (rgb) {
             index++;
         };
         let rHex = parseInt(r).toString(16);
-        if (rHex == '0') {
-            rHex = '00';
+        if (rHex.length == 1) {
+            rHex = '0' + rHex;
         };
         let gHex = parseInt(g).toString(16);
-        if (gHex == '0') {
-            gHex = '00';
+        if (gHex.length == 1) {
+            gHex = '0' + gHex;
         };
         let bHex = parseInt(b).toString(16);
-        if (bHex == '0') {
-            bHex = '00';
+        if (bHex.length == 1) {
+            bHex = '0' + bHex;
         };
         return ('#'+rHex+gHex+bHex);
     }
@@ -126,7 +126,8 @@ boardColorSel.addEventListener('change', ()=>{
 resetBtn.addEventListener('click', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let k = 0; k < (size*size); k++) {
-        allSq[k].style.backgroundColor = '#FFFFFF';
+        allSq[k].style.backgroundColor = '#ffffff';
     };
+    currentBoardColor = '#ffffff';
 });
 
