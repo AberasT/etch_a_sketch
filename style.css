@@ -2,8 +2,24 @@ body {
     background-color: grey;
 }
 
+#container {
+    margin: auto;
+    border-radius: 2%;
+    width: 50vw;
+    background-color: rgb(185, 185, 185);
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-areas: "settings board";
+}
+
+#settings {
+    grid-area: settings;
+    align-content: center;
+}
+
 #board {
     display: grid;
+    grid-area: board;
     background-color: white;
     margin: auto;
     padding: 0.1vw;
