@@ -2,7 +2,8 @@ const selector = document.getElementById('sizes');
 const container = document.getElementById('board');
 const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
-let colorSwitch, greySwitch;
+let colorSwitch, greySwitch, colorFiller;
+let paint;
 
 let currentBoardColor = '';
 
@@ -23,8 +24,11 @@ function makeGrid() {
             d.style.opacity = '1';
             d.style.borderColor = 'rgb(240, 240, 240)';
             d.style.backgroundColor = currentBoardColor;
+            paint = true;
             d.addEventListener('mouseenter', ()=> {
-                d.style.backgroundColor = paintColorSel.value;
+                if (paint) {
+                    d.style.backgroundColor = paintColorSel.value;
+                };
             });
             container.appendChild(d);
         }
@@ -37,6 +41,8 @@ makeGrid();
 //Reset button
 const resetBtn = document.getElementById('reset');
 selector.addEventListener('change', ()=>{
+    colorSwitch.checked = false;
+    greySwitch.checked = false;
     size = selector.value;
     container.innerHTML = ''; //This line sets the cointainer to have no content
     makeGrid();
@@ -46,7 +52,7 @@ selector.addEventListener('change', ()=>{
 paintColorSel.addEventListener('change', ()=>{
     const allSq = document.getElementsByClassName('square');
     for (let l = 0; l < (size*size); l++) {
-        allSq[l].addEventListener('mouseover', ()=> {
+        allSq[l].addEventListener('mouseenter', ()=> {
             allSq[l].style.backgroundColor = paintColorSel.value;
         });
     };
@@ -140,7 +146,7 @@ colorSwitch.addEventListener('change', ()=> {
     if (colorSwitch.checked) {
         for (let h = 0; h < (size*size); h++) {
             allSq[h].addEventListener('mouseenter', ()=> {
-                allSq[h].style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(Math.random()*255)+', '+Math.round(Math.random()*255)+')';
+                allSq[h].style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
             });
         };
     }
@@ -173,4 +179,40 @@ greySwitch.addEventListener('change', ()=> {
             });
         };
     }
+});
+
+//Array to matrix (for easier color filler code)
+let mat = [];
+function arToMat() {
+    let row = [];
+    let i = 0;
+    for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+            row[c] = '';
+            i++;
+        }
+        mat[r] = row;
+    }
+};
+
+//Color fill
+colorFiller = document.getElementById('fillerSwitch');
+colorFiller.addEventListener('change', ()=> {
+    const allSq = document.getElementsByClassName('square');
+    if (colorFiller.checked) {
+        let p;
+        paint = false;
+        for (let m = 0; m < (size*size); m++) {
+            allSq[m].addEventListener('click', ()=> {
+                p = m;
+                while (p<(size*size) && p>=0 && (rgbToHex(allSq[p].style.backgroundColor) == currentBoardColor)) {
+                    allSq[p].style.backgroundColor = '#000000';
+                    p--;
+                }
+            })
+        }
+    }
+    else {
+        paint = true;
+    };
 });
