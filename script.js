@@ -41,7 +41,7 @@ makeGrid();
 //---------------------------------
 
 
-let setting = 'black';
+let setting = 'normal';
 
 
 //Setting the event listener to the grid
@@ -50,11 +50,24 @@ allSq.forEach(square => square.addEventListener('mouseover', coloring ));
 
 function coloring() {
     switch(setting) {
-        case 'black':
+        case 'normal':
             this.style.backgroundColor = '#000000';
+            break;
+        case 'rndm':
+            this.style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
             break;
     }   
 }
+
+colorSwitch = document.getElementById('colorSwitch');
+colorSwitch.addEventListener('change', () => {
+    if (colorSwitch.checked) {
+        setting = 'rndm';
+        
+    } else {
+        setting = 'normal';
+    }
+});
 
 /*
 
