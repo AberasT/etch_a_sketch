@@ -4,10 +4,19 @@ const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
 let colorSwitch, greySwitch, colorFiller;
 let paint;
-
+const allSq = document.getElementsByClassName('square');
 let currentBoardColor = '';
 
 let size = selector.value;
+
+function setDefault() {
+    for (let m = 0; m < (size*size); m++) {
+        allSq[m].addEventListener('mouseenter', ()=> {
+            allSq[m].style.backgroundColor = paintColorSel.value;
+            allSq[m].style.opacity = '1';
+        });
+    };
+};
 
 /*I don't know why if I dont divide by 10 then it creates a grid of size*10xsize*10 
 The size value is correct, I guess the problem is in the loops (CONSOLE.LOGS IN THE LOOPS FOR DEBUG)
@@ -50,7 +59,6 @@ selector.addEventListener('change', ()=>{
 
 //Paint color change
 paintColorSel.addEventListener('change', ()=>{
-    const allSq = document.getElementsByClassName('square');
     for (let l = 0; l < (size*size); l++) {
         allSq[l].addEventListener('mouseenter', ()=> {
             allSq[l].style.backgroundColor = paintColorSel.value;
@@ -113,7 +121,6 @@ function rgbToHex (rgb) {
 
  //Board color change
 boardColorSel.addEventListener('change', ()=>{
-    const allSq = document.getElementsByClassName('square');
     for (let q = 0; q < (size*size); q++) {
             if (rgbToHex(allSq[q].style.backgroundColor) == currentBoardColor) {
                 allSq[q].style.backgroundColor = boardColorSel.value;
@@ -131,7 +138,6 @@ boardColorSel.addEventListener('change', ()=>{
 
 //The reset button turns the board white
 resetBtn.addEventListener('click', ()=>{
-    const allSq = document.getElementsByClassName('square');
     for (let k = 0; k < (size*size); k++) {
         allSq[k].style.backgroundColor = '#ffffff';
     };
@@ -141,9 +147,8 @@ resetBtn.addEventListener('click', ()=>{
 //Random paint checkbox
 colorSwitch = document.getElementById('colorSwitch');
 colorSwitch.addEventListener('change', ()=> {
-    const allSq = document.getElementsByClassName('square');
-    greySwitch.checked = false;
     if (colorSwitch.checked) {
+        greySwitch.checked = false;
         for (let h = 0; h < (size*size); h++) {
             allSq[h].addEventListener('mouseenter', ()=> {
                 allSq[h].style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
@@ -151,33 +156,24 @@ colorSwitch.addEventListener('change', ()=> {
         };
     }
     else {
-        for (let h = 0; h < (size*size); h++) {
-            allSq[h].addEventListener('mouseenter', ()=> {
-                allSq[h].style.backgroundColor = paintColorSel.value;
-            });
-        };
+        setDefault();
     }
 });
 
+//Cuando desactivo y vuelvo a activar 
 //Grey scale paint checkbox
 greySwitch = document.getElementById('greySwitch');
 greySwitch.addEventListener('change', ()=> {
-    const allSq = document.getElementsByClassName('square');
-    colorSwitch.checked = false;
     if (greySwitch.checked) {
+        colorSwitch.checked = false;
         for (let m = 0; m < (size*size); m++) {
             allSq[m].addEventListener('mouseenter', ()=> {
-                allSq[m].style.backgroundColor = `rgba(0, 0, 0, ${allSq[m].style.opacity - 0.1})`;
+                allSq[m].style.opacity = `${allSq[m].style.opacity - 0.1}`;
             });
         };
     }
     else {
-        for (let m = 0; m < (size*size); m++) {
-            allSq[m].addEventListener('mouseenter', ()=> {
-                allSq[m].style.backgroundColor = paintColorSel.value;
-                allSq[m].style.opacity = '1';
-            });
-        };
+        setDefault();
     }
 });
 
@@ -198,7 +194,6 @@ function arToMat() {
 //Color fill
 colorFiller = document.getElementById('fillerSwitch');
 colorFiller.addEventListener('change', ()=> {
-    const allSq = document.getElementsByClassName('square');
     if (colorFiller.checked) {
         let p;
         paint = false;
