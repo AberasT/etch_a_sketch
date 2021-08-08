@@ -6,8 +6,13 @@ let colorSwitch, greySwitch, colorFiller;
 let paint;
 const allSq = document.getElementsByClassName('square');
 let currentBoardColor = '';
-
 let size = selector.value;
+
+/* REESTRUCTURAR:
+    EVENT LISTENER CON UNA FUNCION QUE CHEQUEA QUÉ
+    ESTÁ SWITCHEADO. EN BASE A ESO SE HACEN DISTINTAS COSAS
+    VARIABLES PARA C/OPCION
+
 
 function setDefault() {
     for (let m = 0; m < (size*size); m++) {
@@ -28,10 +33,10 @@ function makeGrid() {
             d.setAttribute('class', 'square');
             d.style.gridRow = i;
             d.style.gridColumn = j;
-            d.style.borderStyle = 'solid';
-            d.style.borderWidth = '1px';
+            //d.style.borderStyle = 'solid';
+            //d.style.borderWidth = '1px';
             d.style.opacity = '1';
-            d.style.borderColor = 'rgb(240, 240, 240)';
+            //d.style.borderColor = 'rgb(240, 240, 240)';
             d.style.backgroundColor = currentBoardColor;
             paint = true;
             d.addEventListener('mouseenter', ()=> {
@@ -47,7 +52,7 @@ function makeGrid() {
 //This instruction is to make a "default" grid when the user enters the website
 makeGrid();
 
-//Reset button
+//Reset button and size changer
 const resetBtn = document.getElementById('reset');
 selector.addEventListener('change', ()=>{
     colorSwitch.checked = false;
@@ -59,6 +64,7 @@ selector.addEventListener('change', ()=>{
 
 //Paint color change
 paintColorSel.addEventListener('change', ()=>{
+    colorSwitch.checked = false;
     for (let l = 0; l < (size*size); l++) {
         allSq[l].addEventListener('mouseenter', ()=> {
             allSq[l].style.backgroundColor = paintColorSel.value;
@@ -69,53 +75,57 @@ paintColorSel.addEventListener('change', ()=>{
 //Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
 //This is necessary for the color comparisson for the board color change
 function rgbToHex (rgb) {
-    if (rgb == '') {
-        return '';
-    }
-    else {
-        let commas = 0;
-        let index = 4;
-        let r = '';
-        let g = '';
-        let b = '';
-        while (rgb[index] !== ')') {
-            if (rgb[index] == ',') {
-                commas++;
-            }
-            else {
-                switch (commas) {
-                    case 0:
-                        if (rgb[index] !== '') {
-                            r += rgb[index];
-                        };
-                        break;
-                    case 1:
-                        if (rgb[index] !== '') {
-                            g += rgb[index];
-                        };
-                        break;
-                    default:
-                        if (rgb[index] !== '') {
-                            b += rgb[index];
-                        };
-                        break;
+    if (rgb[0] == '#') {
+        return rgb;
+    } else {
+        if (rgb == '') {
+            return '';
+        }
+        else {
+            let commas = 0;
+            let index = 4;
+            let r = '';
+            let g = '';
+            let b = '';
+            while (rgb[index] !== ')') {
+                if (rgb[index] == ',') {
+                    commas++;
+                }
+                else {
+                    switch (commas) {
+                        case 0:
+                            if (rgb[index] !== '') {
+                                r += rgb[index];
+                            };
+                            break;
+                        case 1:
+                            if (rgb[index] !== '') {
+                                g += rgb[index];
+                            };
+                            break;
+                        default:
+                            if (rgb[index] !== '') {
+                                b += rgb[index];
+                            };
+                            break;
+                    };
                 };
+                index++;
             };
-            index++;
-        };
-        let rHex = parseInt(r).toString(16);
-        if (rHex.length == 1) {
-            rHex = '0' + rHex;
-        };
-        let gHex = parseInt(g).toString(16);
-        if (gHex.length == 1) {
-            gHex = '0' + gHex;
-        };
-        let bHex = parseInt(b).toString(16);
-        if (bHex.length == 1) {
-            bHex = '0' + bHex;
-        };
-        return ('#'+rHex+gHex+bHex);
+            let rHex = parseInt(r).toString(16);
+            if (rHex.length == 1) {
+                rHex = '0' + rHex;
+            };
+            let gHex = parseInt(g).toString(16);
+            if (gHex.length == 1) {
+                gHex = '0' + gHex;
+            };
+            let bHex = parseInt(b).toString(16);
+            if (bHex.length == 1) {
+                bHex = '0' + bHex;
+            };
+            return ('#'+rHex+gHex+bHex);
+        }
     }
 };
 
@@ -130,10 +140,8 @@ boardColorSel.addEventListener('change', ()=>{
 });
 
 /*NEXT:
--GRID TOGGLE
 -FILL TOOL
 -SIMPLE INTERFACE
--(Optional): Instead of just changing the color of your grid from black to white (for example) have each pass through it with the mouse change to a completely random RGB value. Then try having each pass just add another 10% of black to it so that only after 10 passes is the square completely black.
 */
 
 //The reset button turns the board white
@@ -160,8 +168,33 @@ colorSwitch.addEventListener('change', ()=> {
     }
 });
 
-//Cuando desactivo y vuelvo a activar 
-//Grey scale paint checkbox
+function lighten(color) {
+    let red, green, blue;
+    if (color !== '#000')  {
+        red = parseInt((color[1]+color[2]),16);
+        if (red > 238) {
+            red = 'ff';
+        } else {
+            red = (red + 16).toString(16);
+        };
+        green = parseInt((color[3]+color[4]),16);
+        if (green > 238) {
+            green = 'ff';
+        } else {
+            green = (green + 16).toString(16);
+        };
+        blue = parseInt((color[5]+color[6]),16);
+        if (blue > 238) {
+            blue = 'ff';
+        } else {
+            blue = (blue + 16).toString(16);
+        };
+        
+    }
+    return '#'+red+green+blue;
+};
+
+//Lighten checkbox (CHANGE NAME!!!)
 greySwitch = document.getElementById('greySwitch');
 greySwitch.addEventListener('change', ()=> {
     if (greySwitch.checked) {

@@ -1,9 +1,9 @@
 body {
     background-color: grey;
+    font-family: 'Noto Sans JP';
 }
 
 #container {
-    margin: auto;
     border-radius: 2%;
     width: 50vw;
     background-color: rgb(185, 185, 185);
@@ -13,15 +13,17 @@ body {
 }
 
 #settings {
+    width: 20vw;
     grid-area: settings;
-    align-content: center;
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+
 }
 
 #board {
     display: grid;
     grid-area: board;
     background-color: white;
-    margin: auto;
     padding: 0.1vw;
     height: 80vh;
     width: 80vh;

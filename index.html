@@ -9,8 +9,29 @@
 <body>
     <div id="container">
         <div id="board"></div>
-        <div id="settings"><button class="bttn" id="reset">RESET</button>
-            <label for="Size">Choose a size:</label>
+        <div id="settings">
+            
+            <label class="switch">
+                Random bright
+                <input id="colorSwitch" type="checkbox">
+            </label>
+            <label class="switch">
+                Lighten
+                <input id="greySwitch" type="checkbox">
+            </label>
+            <label class="switch">
+                Fill
+                <input id="fillerSwitch" type="checkbox">
+            </label>
+            <label>
+                Paint color selector
+                <input id="paint-color" type="color">
+            </label>
+            <label>
+                Board color selector
+                <input id="board-color" type="color">
+            </label>
+            <label for="Size">Size selector</label>
             <select id="sizes">
                 <option value="5">5x5</option>
                 <option value="10">10x10</option>
@@ -19,17 +40,7 @@
                 <option value="80">80x80</option>
                 <option value="100">100x100</option>
             </select>
-            <label class="switch">
-                <input id="colorSwitch" type="checkbox">
-            </label>
-            <label class="switch">
-                <input id="greySwitch" type="checkbox">
-            </label>
-            <label class="switch">
-                <input id="fillerSwitch" type="checkbox">
-            </label>
-            <input id="paint-color" type="color">
-            <input id="board-color" type="color">
+            <button class="bttn" id="reset">RESET</button>
         </div>
     </div>
     <script src="script.js"></script>
