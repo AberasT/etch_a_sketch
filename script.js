@@ -3,8 +3,6 @@ const container = document.getElementById('board');
 const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
 let colorSwitch, greySwitch, colorFiller;
-let paint;
-const allSq = document.getElementsByClassName('square');
 let currentBoardColor = '';
 let size = selector.value;
 
@@ -12,16 +10,6 @@ let size = selector.value;
     EVENT LISTENER CON UNA FUNCION QUE CHEQUEA QUÉ
     ESTÁ SWITCHEADO. EN BASE A ESO SE HACEN DISTINTAS COSAS
     VARIABLES PARA C/OPCION
-
-
-function setDefault() {
-    for (let m = 0; m < (size*size); m++) {
-        allSq[m].addEventListener('mouseenter', ()=> {
-            allSq[m].style.backgroundColor = paintColorSel.value;
-            allSq[m].style.opacity = '1';
-        });
-    };
-};
 
 /*I don't know why if I dont divide by 10 then it creates a grid of size*10xsize*10 
 The size value is correct, I guess the problem is in the loops (CONSOLE.LOGS IN THE LOOPS FOR DEBUG)
@@ -33,24 +21,42 @@ function makeGrid() {
             d.setAttribute('class', 'square');
             d.style.gridRow = i;
             d.style.gridColumn = j;
-            //d.style.borderStyle = 'solid';
-            //d.style.borderWidth = '1px';
             d.style.opacity = '1';
-            //d.style.borderColor = 'rgb(240, 240, 240)';
             d.style.backgroundColor = currentBoardColor;
-            paint = true;
-            d.addEventListener('mouseenter', ()=> {
+            /*d.addEventListener('mouseenter', ()=> {
                 if (paint) {
                     d.style.backgroundColor = paintColorSel.value;
                 };
-            });
+            }); */
             container.appendChild(d);
-        }
-    }
-}
+        };
+    };
+};
 
 //This instruction is to make a "default" grid when the user enters the website
 makeGrid();
+
+//---------------------------------
+//---------------------------------
+//---------------------------------
+
+
+let setting = 'black';
+
+
+//Setting the event listener to the grid
+let allSq = Array.from(document.getElementsByClassName('square'));
+allSq.forEach(square => square.addEventListener('mouseover', coloring ));
+
+function coloring() {
+    switch(setting) {
+        case 'black':
+            this.style.backgroundColor = '#000000';
+            break;
+    }   
+}
+
+/*
 
 //Reset button and size changer
 const resetBtn = document.getElementById('reset');
@@ -62,6 +68,8 @@ selector.addEventListener('change', ()=>{
     makeGrid();
 });
 
+
+
 //Paint color change
 paintColorSel.addEventListener('change', ()=>{
     colorSwitch.checked = false;
@@ -71,6 +79,8 @@ paintColorSel.addEventListener('change', ()=>{
         });
     };
 });
+
+
 
 //Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
 //This is necessary for the color comparisson for the board color change
@@ -139,10 +149,6 @@ boardColorSel.addEventListener('change', ()=>{
     currentBoardColor = boardColorSel.value;
 });
 
-/*NEXT:
--FILL TOOL
--SIMPLE INTERFACE
-*/
 
 //The reset button turns the board white
 resetBtn.addEventListener('click', ()=>{
@@ -244,3 +250,4 @@ colorFiller.addEventListener('change', ()=> {
         paint = true;
     };
 });
+*/
