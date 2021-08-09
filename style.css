@@ -1,6 +1,7 @@
 body {
     background-color: grey;
     font-family: 'Noto Sans JP';
+    font-size: 1.5vw;
 }
 
 #container {
@@ -16,8 +17,7 @@ body {
     width: 20vw;
     grid-area: settings;
     display: grid;
-    grid-template-rows: repeat(7, 1fr);
-    
+    grid-template-rows: repeat(6, 1fr);
 }
 
 #board {
@@ -32,14 +32,11 @@ body {
     grid-template-rows: auto auto;
 }
 
-.randomColor {
-
+.switch:hover {
+    transform: scale(1.1 );
 }
 
-.defaultColor {
-
-}
-
-.shadowColor {
-    
+.indicator {
+    width: 2vw;
+    height: 2vw;
 }
