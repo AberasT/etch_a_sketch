@@ -2,9 +2,9 @@ const selector = document.getElementById('sizes');
 const container = document.getElementById('board');
 const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
-let rndmSwitch, lightenSwitch, darkenSwitch;
 let currentBoardColor = '#ffffff';
 let size = selector.value;
+const resetBtn = document.getElementById('reset');
 
 /*I don't know why if I dont divide by 10 then it creates a grid of size*10xsize*10 
 The size value is correct, I guess the problem is in the loops (CONSOLE.LOGS IN THE LOOPS FOR DEBUG)
@@ -106,15 +106,15 @@ function lighten(color) {
 };
 function darken(color) {
     let red, green, blue;
-    if (color !== '#000')  {
+    if (color !== '#000' && color !== '#000000')  {
         red = parseInt((color[1]+color[2]),16);
-        red < 16 ? red = '00' : red = (red - 16).toString(16);
+        red < 32 ? red = '00' : red = (red - 16).toString(16);
 
         green = parseInt((color[3]+color[4]),16);
-        green < 16 ? green = '00' : green = (green - 16).toString(16);
+        green < 32 ? green = '00' : green = (green - 16).toString(16);
 
         blue = parseInt((color[5]+color[6]),16);
-        blue < 16 ? blue = '00' : blue = (blue - 16).toString(16);        
+        blue < 32 ? blue = '00' : blue = (blue - 16).toString(16);
     }
     return '#'+red+green+blue;
 };
@@ -149,7 +149,7 @@ function coloring() {
 };
 
 //Switches to change 'setting'
-rndmSwitch = document.getElementById('rndmSwitch');
+const rndmSwitch = document.getElementById('rndmSwitch');
 rndmSwitch.addEventListener('change', () => {
     if (rndmSwitch.checked) {
         setting = 'rndm';
@@ -160,7 +160,7 @@ rndmSwitch.addEventListener('change', () => {
     }
 });
 
-lightenSwitch = document.getElementById('lightenSwitch');
+const lightenSwitch = document.getElementById('lightenSwitch');
 lightenSwitch.addEventListener('change', () => {
     if (lightenSwitch.checked) {
         setting = 'lighten';
@@ -171,7 +171,7 @@ lightenSwitch.addEventListener('change', () => {
     }
 });
 
-darkenSwitch = document.getElementById('darkenSwitch');
+const darkenSwitch = document.getElementById('darkenSwitch');
 darkenSwitch.addEventListener('change', () => {
     if (darkenSwitch.checked) {
         setting = 'darken';
@@ -184,7 +184,6 @@ darkenSwitch.addEventListener('change', () => {
 
 
 //Size changer
-const resetBtn = document.getElementById('reset');
 selector.addEventListener('change', ()=>{
     size = selector.value;
     container.innerHTML = ''; //This line sets the cointainer to have no content
@@ -201,7 +200,6 @@ resetBtn.addEventListener('click', ()=>{
 
 
  //Board color change
-
  boardColorSel.addEventListener('change', ()=>{
     for (let q = 0; q < (size*size); q++) {
             if (rgbToHex(allSq[q].style.backgroundColor) == currentBoardColor) {
