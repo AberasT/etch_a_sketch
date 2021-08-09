@@ -2,14 +2,9 @@ const selector = document.getElementById('sizes');
 const container = document.getElementById('board');
 const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
-let rndmSwitch, shadowSwitch;
-let currentBoardColor = '';
+let rndmSwitch, lightenSwitch, darkenSwitch;
+let currentBoardColor = '#ffffff';
 let size = selector.value;
-
-/* REESTRUCTURAR:
-    EVENT LISTENER CON UNA FUNCION QUE CHEQUEA QUÉ
-    ESTÁ SWITCHEADO. EN BASE A ESO SE HACEN DISTINTAS COSAS
-    VARIABLES PARA C/OPCION
 
 /*I don't know why if I dont divide by 10 then it creates a grid of size*10xsize*10 
 The size value is correct, I guess the problem is in the loops (CONSOLE.LOGS IN THE LOOPS FOR DEBUG)
@@ -27,8 +22,6 @@ function makeGrid() {
         };
     };
 };
-
-//This instruction is to make a "default" grid when the user enters the website
 let allSq;
 let paint = false;
 const ind = document.querySelector(".indicator");
@@ -43,81 +36,12 @@ function setGame() {
     }));
     allSq.forEach(square => square.addEventListener('mouseover', coloring ));
 }
-
-setGame();
-//---------------------------------
-//---------------------------------
-//---------------------------------
-
-
-let setting = 'normal';
-
-//Setting the event listener to the grid
-
-
-function coloring() {
-    if (paint) {
-        switch(setting) {
-            case 'normal':
-                this.style.backgroundColor = paintColorSel.value;
-                break;
-            case 'rndm':
-                this.style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
-                break;
-            case 'shadow':
-                this.style.opacity = this.style.opacity - 0.1;
-                break;
-        }   
-    }
-};
-
-//Switches to change 'setting'
-rndmSwitch = document.getElementById('rndmSwitch');
-rndmSwitch.addEventListener('change', () => {
-    if (rndmSwitch.checked) {
-        setting = 'rndm';
-        
-    } else {
-        setting = 'normal';
-    }
-});
-
-shadowSwitch = document.getElementById('shadowSwitch');
-shadowSwitch.addEventListener('change', () => {
-    if (shadowSwitch.checked) {
-        setting = 'shadow';
-        
-    } else {
-        setting = 'normal';
-    }
-});
-
-
-
-//Size changer
-const resetBtn = document.getElementById('reset');
-selector.addEventListener('change', ()=>{
-    size = selector.value;
-    container.innerHTML = ''; //This line sets the cointainer to have no content
-    setGame();
-});
-
-//Reset button to turn the board white
-resetBtn.addEventListener('click', ()=>{
-    for (let k = 0; k < (size*size); k++) {
-        allSq[k].style.backgroundColor = '#ffffff';
-    };
-    currentBoardColor = '#ffffff';
-});
-
-//Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
-//This is necessary for the color comparisson for the board color change
 function rgbToHex (rgb) {
     if (rgb[0] == '#') {
         return rgb;
     } else {
         if (rgb == '') {
-            return '';
+            return '#ffffff';
         }
         else {
             let commas = 0;
@@ -166,8 +90,118 @@ function rgbToHex (rgb) {
         }
     }
 };
+function lighten(color) {
+    let red, green, blue;
+    if (color !== '#000')  {
+        red = parseInt((color[1]+color[2]),16);
+        red > 238 ? red = 'ff' : red = (red + 16).toString(16);
+
+        green = parseInt((color[3]+color[4]),16);
+        green > 238 ? green = 'ff' : green = (green + 16).toString(16);
+
+        blue = parseInt((color[5]+color[6]),16);
+        blue > 238 ? blue = 'ff' : blue = (blue + 16).toString(16);
+    }
+    return '#'+red+green+blue;
+};
+function darken(color) {
+    let red, green, blue;
+    if (color !== '#000')  {
+        red = parseInt((color[1]+color[2]),16);
+        red < 16 ? red = '00' : red = (red - 16).toString(16);
+
+        green = parseInt((color[3]+color[4]),16);
+        green < 16 ? green = '00' : green = (green - 16).toString(16);
+
+        blue = parseInt((color[5]+color[6]),16);
+        blue < 16 ? blue = '00' : blue = (blue - 16).toString(16);        
+    }
+    return '#'+red+green+blue;
+};
+
+//Function that takes and rgb value with the format rgb(nnn, nnn, nnn) and returns it in hex code #hhhhhh
+//This is necessary for the color comparisson for the board color change
+
+
+setGame();
+
+let setting = 'normal';
+
+
+//Setting the event listener to the grid
+
+function coloring() {
+    if (paint) {
+        switch(setting) {
+            case 'normal':
+                this.style.backgroundColor = paintColorSel.value;
+                break;
+            case 'rndm':
+                this.style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
+                break;
+            case 'lighten':
+                this.style.backgroundColor = lighten(rgbToHex(this.style.backgroundColor));
+                break;
+            case 'darken':
+                this.style.backgroundColor = darken(rgbToHex(this.style.backgroundColor));
+        }   
+    }
+};
+
+//Switches to change 'setting'
+rndmSwitch = document.getElementById('rndmSwitch');
+rndmSwitch.addEventListener('change', () => {
+    if (rndmSwitch.checked) {
+        setting = 'rndm';
+        lightenSwitch.checked = false;
+        darkenSwitch.checked = false;
+    } else {
+        setting = 'normal';
+    }
+});
+
+lightenSwitch = document.getElementById('lightenSwitch');
+lightenSwitch.addEventListener('change', () => {
+    if (lightenSwitch.checked) {
+        setting = 'lighten';
+        rndmSwitch.checked = false;
+        darkenSwitch.checked = false;
+    } else {
+        setting = 'normal';
+    }
+});
+
+darkenSwitch = document.getElementById('darkenSwitch');
+darkenSwitch.addEventListener('change', () => {
+    if (darkenSwitch.checked) {
+        setting = 'darken';
+        rndmSwitch.checked = false;
+        lightenSwitch.checked = false;
+    } else {
+        setting = 'normal';
+    }
+});
+
+
+//Size changer
+const resetBtn = document.getElementById('reset');
+selector.addEventListener('change', ()=>{
+    size = selector.value;
+    container.innerHTML = ''; //This line sets the cointainer to have no content
+    setGame();
+});
+
+//Reset button to turn the board white
+resetBtn.addEventListener('click', ()=>{
+    for (let k = 0; k < (size*size); k++) {
+        allSq[k].style.backgroundColor = '#ffffff';
+    };
+    currentBoardColor = '#ffffff';
+});
+
 
  //Board color change
+
  boardColorSel.addEventListener('change', ()=>{
     for (let q = 0; q < (size*size); q++) {
             if (rgbToHex(allSq[q].style.backgroundColor) == currentBoardColor) {
@@ -177,99 +211,3 @@ function rgbToHex (rgb) {
     currentBoardColor = boardColorSel.value;
 });
 
-/*
-
-
-//Random paint checkbox
-colorSwitch = document.getElementById('colorSwitch');
-colorSwitch.addEventListener('change', ()=> {
-    if (colorSwitch.checked) {
-        greySwitch.checked = false;
-        for (let h = 0; h < (size*size); h++) {
-            allSq[h].addEventListener('mouseenter', ()=> {
-                allSq[h].style.backgroundColor = 'rgb('+Math.round(Math.random()*255)+', '+Math.round(128 + Math.random()*127)+', '+Math.round(128 + Math.random()*127)+')';
-            });
-        };
-    }
-    else {
-        setDefault();
-    }
-});
-
-function lighten(color) {
-    let red, green, blue;
-    if (color !== '#000')  {
-        red = parseInt((color[1]+color[2]),16);
-        if (red > 238) {
-            red = 'ff';
-        } else {
-            red = (red + 16).toString(16);
-        };
-        green = parseInt((color[3]+color[4]),16);
-        if (green > 238) {
-            green = 'ff';
-        } else {
-            green = (green + 16).toString(16);
-        };
-        blue = parseInt((color[5]+color[6]),16);
-        if (blue > 238) {
-            blue = 'ff';
-        } else {
-            blue = (blue + 16).toString(16);
-        };
-        
-    }
-    return '#'+red+green+blue;
-};
-
-//Lighten checkbox (CHANGE NAME!!!)
-greySwitch = document.getElementById('greySwitch');
-greySwitch.addEventListener('change', ()=> {
-    if (greySwitch.checked) {
-        colorSwitch.checked = false;
-        for (let m = 0; m < (size*size); m++) {
-            allSq[m].addEventListener('mouseenter', ()=> {
-                allSq[m].style.opacity = `${allSq[m].style.opacity - 0.1}`;
-            });
-        };
-    }
-    else {
-        setDefault();
-    }
-});
-
-//Array to matrix (for easier color filler code)
-let mat = [];
-function arToMat() {
-    let row = [];
-    let i = 0;
-    for (let r = 0; r < size; r++) {
-        for (let c = 0; c < size; c++) {
-            row[c] = '';
-            i++;
-        }
-        mat[r] = row;
-    }
-};
-
-//Color fill
-colorFiller = document.getElementById('fillerSwitch');
-colorFiller.addEventListener('change', ()=> {
-    if (colorFiller.checked) {
-        let p;
-        paint = false;
-        for (let m = 0; m < (size*size); m++) {
-            allSq[m].addEventListener('click', ()=> {
-                p = m;
-                while (p<(size*size) && p>=0 && (rgbToHex(allSq[p].style.backgroundColor) == currentBoardColor)) {
-                    allSq[p].style.backgroundColor = '#000000';
-                    p--;
-                }
-            })
-        }
-    }
-    else {
-        paint = true;
-    };
-});
-*/
