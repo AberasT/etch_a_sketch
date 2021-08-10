@@ -7,10 +7,13 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
+    <div id="text">
+        <h1>Etch-A-Sketch</h1>
+        <a href="https://github.com/AberasT" target="_blank">AberasT<img src="/images/ghub_icon.png" id="github"></a>
+    </div>
     <div id="container">
         <div id="board"></div>
-        <div id="settings">
-            <div class="indicator"></div>
+        <div id="settings1">
             <label class="switch">
                 Random bright
                 <input id="rndmSwitch" type="checkbox">
@@ -23,6 +26,9 @@
                 Darken
                 <input id="darkenSwitch" type="checkbox">
             </label>
+        </div>
+        <div id="settings2">
+            <div class="indicator"></div>
             <label>
                 Paint color selector
                 <input id="paint-color" type="color">

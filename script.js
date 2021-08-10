@@ -182,7 +182,6 @@ darkenSwitch.addEventListener('change', () => {
     }
 });
 
-
 //Size changer
 selector.addEventListener('change', ()=>{
     size = selector.value;
@@ -197,7 +196,6 @@ resetBtn.addEventListener('click', ()=>{
     };
     currentBoardColor = '#ffffff';
 });
-
 
  //Board color change
  boardColorSel.addEventListener('change', ()=>{
