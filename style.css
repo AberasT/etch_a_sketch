@@ -71,9 +71,22 @@ a {
 
 .switch:hover {
     transform: scale(1.1 );
+    color:rgb(241, 241, 241);
 }
 
 .indicator {
     width: 2vw;
     height: 2vw;
+}
+
+#lightenSwitch {
+    display: none;
+}
+
+#rndmSwitch {
+    display: none;
+}
+
+#darkenSwitch {
+    display: none;
 }
