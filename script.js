@@ -24,15 +24,15 @@ function makeGrid() {
 };
 let allSq;
 let paint = false;
-const ind = document.querySelector(".indicator");
-ind.style.backgroundColor = '#FF0000';
+let ind = document.querySelector("#board");
+ind.style.borderColor = '#53537e';
 
 function setGame() {
     makeGrid();
     allSq = Array.from(document.getElementsByClassName('square'));
     allSq.forEach(square => square.addEventListener('click', () => {
         paint = !paint;
-        (paint) ? ind.style.backgroundColor = '#00FF00' : ind.style.backgroundColor = '#FF0000';
+        (paint) ? ind.style.borderColor = '#e2d99e' : ind.style.borderColor = '#53537e';
     }));
     allSq.forEach(square => square.addEventListener('mouseover', coloring ));
 }
