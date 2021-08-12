@@ -30,7 +30,7 @@ function makeGrid() {
 };
 let allSq;
 let paint = false;
-let ind = document.querySelector("#board");
+const ind = document.querySelector("#board");
 ind.style.borderColor = '#5c5c74';
 updateSwitches(normalText,rndmText,lightenText,darkenText);
 
