@@ -164,6 +164,7 @@ const lightenSwitch = document.getElementById('lightenSwitch');
 lightenSwitch.addEventListener('change', () => {
     if (lightenSwitch.checked) {
         setting = 'lighten';
+        
         rndmSwitch.checked = false;
         darkenSwitch.checked = false;
     } else {
@@ -206,4 +207,3 @@ resetBtn.addEventListener('click', ()=>{
     };
     currentBoardColor = boardColorSel.value;
 });
-
