@@ -2,6 +2,12 @@ const selector = document.getElementById('sizes');
 const container = document.getElementById('board');
 const paintColorSel = document.getElementById('paint-color');
 const boardColorSel = document.getElementById('board-color');
+
+const normalText = document.querySelector("#normal-text");
+const rndmText = document.querySelector("#rndm-text");
+const lightenText = document.querySelector("#lighten-text");
+const darkenText = document.querySelector("#darken-text");
+
 let currentBoardColor = '#ffffff';
 let size = selector.value;
 const resetBtn = document.getElementById('reset');
@@ -26,6 +32,7 @@ let allSq;
 let paint = false;
 let ind = document.querySelector("#board");
 ind.style.borderColor = '#5c5c74';
+updateSwitches(normalText,rndmText,lightenText,darkenText);
 
 function setGame() {
     makeGrid();
@@ -34,7 +41,7 @@ function setGame() {
         paint = !paint;
         (paint) ? ind.style.borderColor = '#e2d99e' : ind.style.borderColor = '#5c5c74';
     }));
-    allSq.forEach(square => square.addEventListener('mouseover', coloring ));
+    allSq.forEach(square => square.addEventListener('mouseover', coloring));
 }
 function rgbToHex (rgb) {
     if (rgb[0] == '#') {
@@ -149,39 +156,62 @@ function coloring() {
 };
 
 //Switches to change 'setting'
+normalText.addEventListener('click', () => {
+    setting = 'normal';
+    lightenSwitch.checked = false;
+    darkenSwitch.checked = false;
+    rndmSwitch.checked = false;
+    updateSwitches(normalText,rndmText,lightenText,darkenText);
+});
 const rndmSwitch = document.getElementById('rndmSwitch');
 rndmSwitch.addEventListener('change', () => {
     if (rndmSwitch.checked) {
         setting = 'rndm';
         lightenSwitch.checked = false;
         darkenSwitch.checked = false;
+        updateSwitches(rndmText,lightenText,darkenText,normalText);
     } else {
         setting = 'normal';
+        updateSwitches(normalText,rndmText,lightenText,darkenText);
     }
 });
-
 const lightenSwitch = document.getElementById('lightenSwitch');
 lightenSwitch.addEventListener('change', () => {
     if (lightenSwitch.checked) {
         setting = 'lighten';
-        
         rndmSwitch.checked = false;
         darkenSwitch.checked = false;
+        updateSwitches(lightenText,rndmText,darkenText,normalText);
     } else {
         setting = 'normal';
+        updateSwitches(normalText,rndmText,lightenText,darkenText);
     }
 });
-
 const darkenSwitch = document.getElementById('darkenSwitch');
 darkenSwitch.addEventListener('change', () => {
     if (darkenSwitch.checked) {
         setting = 'darken';
         rndmSwitch.checked = false;
         lightenSwitch.checked = false;
+        updateSwitches(darkenText,lightenText,rndmText,normalText);
     } else {
         setting = 'normal';
+        updateSwitches(normalText,rndmText,lightenText,darkenText);
     }
 });
+
+
+function updateSwitches(swUp,swDown1,swDown2,swDown3) {
+    swUp.style.color = '#f5efc7';
+    swUp.style.textShadow = '0 0 4px #e2d99e';
+    swDown1.style.color = '#b6b191';
+    swDown1.style.textShadow = 'none';
+    swDown2.style.color = '#b6b191';
+    swDown2.style.textShadow = 'none';
+    swDown3.style.color = '#b6b191';
+    swDown3.style.textShadow = 'none';
+}
+
 
 //Size changer
 selector.addEventListener('change', ()=>{

@@ -76,6 +76,10 @@ a {
     height: 2vw;
 }
 
+#normal-text {
+    
+}
+
 #lightenSwitch {
     display: none;
 }
@@ -121,4 +125,11 @@ p {
     color: #f5efc7;
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
     cursor: pointer;
+}
+
+#normal-text:hover {
+    color: #f5efc7;
+    text-shadow: 1px 1px 2px rgb(7, 7, 7);
+    cursor: pointer;
+    transform: scale(1.2);
 }
