@@ -56,7 +56,7 @@ a {
 #board {
     display: grid;
     grid-area: board;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     height: 80vmin;
     width: 80vmin;
     border-style: solid;
@@ -106,7 +106,8 @@ a {
 }
 
 .bttn:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 p {
@@ -119,4 +120,5 @@ p {
 .setting-text:hover {
     color: #f5efc7;
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
+    cursor: pointer;
 }

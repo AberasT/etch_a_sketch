@@ -25,14 +25,14 @@ function makeGrid() {
 let allSq;
 let paint = false;
 let ind = document.querySelector("#board");
-ind.style.borderColor = '#53537e';
+ind.style.borderColor = '#5c5c74';
 
 function setGame() {
     makeGrid();
     allSq = Array.from(document.getElementsByClassName('square'));
     allSq.forEach(square => square.addEventListener('click', () => {
         paint = !paint;
-        (paint) ? ind.style.borderColor = '#e2d99e' : ind.style.borderColor = '#53537e';
+        (paint) ? ind.style.borderColor = '#e2d99e' : ind.style.borderColor = '#5c5c74';
     }));
     allSq.forEach(square => square.addEventListener('mouseover', coloring ));
 }
