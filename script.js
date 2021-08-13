@@ -204,12 +204,16 @@ darkenSwitch.addEventListener('change', () => {
 function updateSwitches(swUp,swDown1,swDown2,swDown3) {
     swUp.style.color = '#f5efc7';
     swUp.style.textShadow = '0 0 4px #e2d99e';
+    swUp.style.textDecoration = 'underline';
     swDown1.style.color = '#b6b191';
     swDown1.style.textShadow = 'none';
+    swDown1.style.textDecoration = 'none';
     swDown2.style.color = '#b6b191';
     swDown2.style.textShadow = 'none';
+    swDown2.style.textDecoration = 'none';
     swDown3.style.color = '#b6b191';
     swDown3.style.textShadow = 'none';
+    swDown3.style.textDecoration = 'none';
 }
 
 

@@ -1,16 +1,16 @@
 body {
     height: 100%;
     text-align: center;
-    background-color: #1e1e25;
+    background-color: #661717;
     font-family: 'Noto Sans JP';
     font-size: 2vw;
 }
 
 h1 {
     margin: 0;
-    color: #e2d99e;
+    color: #fff4b0;
     height: 10vmin;
-    text-shadow: 0px 2px 2px rgb(182, 182, 182);
+    text-shadow: 0px 3px 2px #8a835e;
 }
 
 #text {
@@ -20,8 +20,8 @@ h1 {
 
 a {
     text-decoration: none; 
-    font-size: 3vmin;
-    color: #888362;
+    font-size: 2.5vmin;
+    color: #cac5a1;
 }
 
 #container {
@@ -35,6 +35,12 @@ a {
 }
 
 #settings1 {
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: rgb(117, 29, 29);
+    background-color: brown;
+    box-shadow: 0px 0px 10px rgb(65, 6, 6);
     width: 15vw;
     grid-area: settings1;
     font-size: 4.5vmin;
@@ -44,6 +50,12 @@ a {
 }
 
 #settings2 {
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: rgb(117, 29, 29);
+    background-color: brown;
+    box-shadow: 0px 0px 10px rgb(65, 6, 6);
     width: 15vw;
     font-size: 3vmin;
     grid-area: settings2;
@@ -57,6 +69,7 @@ a {
     display: grid;
     grid-area: board;
     background-color: rgb(0, 0, 0);
+    box-shadow: 0px 0px 10px rgb(65, 6, 6);
     height: 80vmin;
     width: 80vmin;
     border-style: solid;
@@ -76,10 +89,6 @@ a {
     height: 2vw;
 }
 
-#normal-text {
-    
-}
-
 #lightenSwitch {
     display: none;
 }
@@ -93,8 +102,13 @@ a {
 }
 
 #sizes {
-    margin-top: -2vh;
-    width: 7vw;
+    margin-top: -2vw;
+    border-radius: 10px;
+    background-color: #faf4d1;
+    font-weight: bold;
+    cursor: pointer;
+    width: 11vmin;
+    height: 4.2vmin;
 }
 
 .bttn {
@@ -117,12 +131,11 @@ a {
 p {
     margin-bottom: 0;
     margin-top: 1vh;
-    color: #b6b191;
+    color: #dbd6b1;
     text-shadow: 1px 1px 2px black;
 }
 
 .setting-text:hover {
-    color: #f5efc7;
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
     cursor: pointer;
 }
@@ -132,4 +145,14 @@ p {
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
     cursor: pointer;
     transform: scale(1.2);
+}
+
+#paint-color {
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#board-color {
+    border-radius: 7px;
+    cursor: pointer;
 }
