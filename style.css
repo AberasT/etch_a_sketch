@@ -6,6 +6,13 @@ body {
     font-size: 2vw;
 }
 
+/* Title and github anchor styles */
+
+#text {
+    display: block;
+    margin: auto;
+}
+
 h1 {
     margin: 0;
     color: #fff4b0;
@@ -13,16 +20,13 @@ h1 {
     text-shadow: 0px 3px 2px #8a835e;
 }
 
-#text {
-    display: block;
-    margin: auto;
-}
-
 a {
     text-decoration: none; 
     font-size: 2.5vmin;
     color: #cac5a1;
 }
+
+/* Board and menu styles, using Grid and Flexbox */
 
 #container {
     margin: 0 auto;
@@ -80,25 +84,13 @@ a {
     grid-template-rows: auto auto;
 }
 
-.switch:hover {
-    transform: scale(1.2);
-}
+/* Settings and switches styles */
 
-.indicator {
-    width: 2vw;
-    height: 2vw;
-}
-
-#lightenSwitch {
-    display: none;
-}
-
-#rndmSwitch {
-    display: none;
-}
-
-#darkenSwitch {
-    display: none;
+p {
+    margin-bottom: 0;
+    margin-top: 1vh;
+    color: #dbd6b1;
+    text-shadow: 1px 1px 2px black;
 }
 
 #sizes {
@@ -123,16 +115,37 @@ a {
     padding: 2vmin;
 }
 
-.bttn:hover {
-    transform: scale(1.1);
+#lightenSwitch { /* Hide checkboxes */
+    display: none; 
+}
+
+#rndmSwitch {
+    display: none;
+}
+
+#darkenSwitch {
+    display: none;
+}
+
+#paint-color { /* Color inputs styles */
+    border-radius: 7px;
     cursor: pointer;
 }
 
-p {
-    margin-bottom: 0;
-    margin-top: 1vh;
-    color: #dbd6b1;
-    text-shadow: 1px 1px 2px black;
+#board-color {
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* Hover effects */
+
+.switch:hover {
+    transform: scale(1.2);
+}
+
+.bttn:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .setting-text:hover {
@@ -145,14 +158,4 @@ p {
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
     cursor: pointer;
     transform: scale(1.2);
-}
-
-#paint-color {
-    border-radius: 7px;
-    cursor: pointer;
-}
-
-#board-color {
-    border-radius: 7px;
-    cursor: pointer;
 }
