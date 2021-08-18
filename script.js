@@ -1,15 +1,19 @@
 //  Sets the size input to a variable and asigns the default value
-const selector = document.getElementById('sizes'); 
-let size = selector.value;
+const sizeSelector = document.getElementById('sizes'); 
 
+/*LATEST CHANGES
+- size is no longer a variable
+- switches to texts
+
+*/
 
 /*  With the size value, creates a grid of divs.
 Each div is assigned to a row and a column and setted to "currentBoardColor". */
 const container = document.getElementById('board');
 let currentBoardColor = '#ffffff';
 function makeGrid() {
-    for (let i = 1; i <= size; i++) {  //One 'for' loop is for the rows (i) and the other one is for the columns (j).
-        for (let j = 1; j <= size ; j++) {
+    for (let i = 1; i <= sizeSelector.value; i++) {  //One 'for' loop is for the rows (i) and the other one is for the columns (j).
+        for (let j = 1; j <= sizeSelector.value ; j++) {
             let d = document.createElement('div');
             d.setAttribute('class', 'square');
             d.style.gridRow = i;
@@ -176,41 +180,29 @@ function coloring() {
 
 normalText.addEventListener('click', () => {
     setting = 'normal';
-    lightenSwitch.checked = false;
-    darkenSwitch.checked = false;
-    rndmSwitch.checked = false;
     updateSwitches(normalText,rndmText,lightenText,darkenText);
 });
-const rndmSwitch = document.getElementById('rndmSwitch');
-rndmSwitch.addEventListener('change', () => {
-    if (rndmSwitch.checked) {
+rndmText.addEventListener('click', () => {
+    if (setting !== 'rndm') {
         setting = 'rndm';
-        lightenSwitch.checked = false;
-        darkenSwitch.checked = false;
         updateSwitches(rndmText,lightenText,darkenText,normalText);
     } else {
         setting = 'normal';
         updateSwitches(normalText,rndmText,lightenText,darkenText);
     }
 });
-const lightenSwitch = document.getElementById('lightenSwitch');
-lightenSwitch.addEventListener('change', () => {
-    if (lightenSwitch.checked) {
+lightenText.addEventListener('click', () => {
+    if (setting !== 'lighten') {
         setting = 'lighten';
-        rndmSwitch.checked = false;
-        darkenSwitch.checked = false;
         updateSwitches(lightenText,rndmText,darkenText,normalText);
     } else {
         setting = 'normal';
         updateSwitches(normalText,rndmText,lightenText,darkenText);
     }
 });
-const darkenSwitch = document.getElementById('darkenSwitch');
-darkenSwitch.addEventListener('change', () => {
-    if (darkenSwitch.checked) {
+darkenText.addEventListener('click', () => {
+    if (setting !== 'darken') {
         setting = 'darken';
-        rndmSwitch.checked = false;
-        lightenSwitch.checked = false;
         updateSwitches(darkenText,lightenText,rndmText,normalText);
     } else {
         setting = 'normal';
@@ -219,8 +211,7 @@ darkenSwitch.addEventListener('change', () => {
 });
 
 //  Size changer. Deletes the board and sets a new game with the new size.
-selector.addEventListener('change', ()=>{
-    size = selector.value;
+sizeSelector.addEventListener('change', ()=>{
     container.innerHTML = '';
     setGame();
 });
@@ -228,7 +219,7 @@ selector.addEventListener('change', ()=>{
 //  Reset button that turns the board white.
 const resetBtn = document.getElementById('reset');
 resetBtn.addEventListener('click', ()=>{
-    for (let k = 0; k < (size*size); k++) {
+    for (let k = 0; k < (sizeSelector.value*sizeSelector.value); k++) {
         allSq[k].style.backgroundColor = '#ffffff';
     };
     currentBoardColor = '#ffffff';
@@ -237,7 +228,7 @@ resetBtn.addEventListener('click', ()=>{
  // Board color changer.
  const boardColorSel = document.getElementById('board-color');
  boardColorSel.addEventListener('change', ()=>{
-    for (let q = 0; q < (size*size); q++) {
+    for (let q = 0; q < (sizeSelector.value*sizeSelector.value); q++) {
             if (rgbToHex(allSq[q].style.backgroundColor) == currentBoardColor) {
                 allSq[q].style.backgroundColor = boardColorSel.value;
             };

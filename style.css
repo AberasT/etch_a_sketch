@@ -14,6 +14,7 @@ body {
 }
 
 h1 {
+    text-align: center;
     margin: 0;
     color: #fff4b0;
     height: 10vmin;
@@ -88,6 +89,7 @@ a {
 
 p {
     margin-bottom: 0;
+    font-family: 'Noto Sans JP';
     margin-top: 1vh;
     color: #dbd6b1;
     text-shadow: 1px 1px 2px black;
@@ -115,18 +117,6 @@ p {
     padding: 2vmin;
 }
 
-#lightenSwitch { /* Hide checkboxes */
-    display: none; 
-}
-
-#rndmSwitch {
-    display: none;
-}
-
-#darkenSwitch {
-    display: none;
-}
-
 #paint-color { /* Color inputs styles */
     border-radius: 7px;
     cursor: pointer;
@@ -139,21 +129,12 @@ p {
 
 /* Hover effects */
 
-.switch:hover {
-    transform: scale(1.2);
-}
-
 .bttn:hover {
     transform: scale(1.1);
     cursor: pointer;
 }
 
 .setting-text:hover {
-    text-shadow: 1px 1px 2px rgb(7, 7, 7);
-    cursor: pointer;
-}
-
-#normal-text:hover {
     color: #f5efc7;
     text-shadow: 1px 1px 2px rgb(7, 7, 7);
     cursor: pointer;
